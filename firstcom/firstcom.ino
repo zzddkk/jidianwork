@@ -73,7 +73,7 @@ void loop() {
         weight_flag=1;
 
   }
-  if (reading<1000 && weight_flag==1 ){
+  if ((reading<1000 && weight_flag==1) || counttime==0 ){
     weight_flag=0;
     mySerial.write(weight_flag);
     CPlay(30, 1, MUSIC_SELECT);  // 选择 m 曲目播放
