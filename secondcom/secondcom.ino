@@ -10,7 +10,7 @@ Servo my_servo;
 void setup() {
   // put your setup code here, to run once:
   mySerial.begin(9600);
-  Serial.begin(9600);
+  Serial.begin(57600);
   my_servo.attach(A0);
 }
 int s;
@@ -21,7 +21,7 @@ void loop() {
         s=mySerial.read();
     }
     Serial.println(s);
-    if (s==123){
+    if (s==1){
 
       switch (i) {
         case 0:
@@ -53,5 +53,8 @@ void loop() {
           delay(1000);
           break;
       }
+    }
+    if (s==0){
+      my_servo.write(0);
     }
 }
