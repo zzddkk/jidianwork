@@ -15,9 +15,10 @@
 int mins=0;
 int secs=0;
 int i;
-int counttime=5*60;
+int counttime=20;
 long reading=0;
 int weight_flag=0;
+int voice_flag=1;
 
 const byte rxPin = 2;
 const byte txPin = 3;
@@ -65,15 +66,20 @@ void loop() {
     reading=0;
   }
   if (reading>1000){
-        mySerial.write(weight_flag);
         if (weight_flag==0){
         //CPlay(4,7,7 , MUSIC_SELECT);  // 选择 m 曲目播放
         MsTimer2::start();
         }
+        if (counttime==0){
+          theresetprinttime();
+          weight_flag=0;
+        }
+        Serial.println(weight_flag);
+        mySerial.write(weight_flag);
         weight_flag=1;
 
   }
-  if ((reading<1000 && weight_flag==1) || counttime==0 ){
+  if ((reading<1000 && weight_flag==1) || (counttime==0 && weight_flag==0)){
     weight_flag=0;
     mySerial.write(weight_flag);
     CPlay(30, 1, MUSIC_SELECT);  // 选择 m 曲目播放
@@ -82,8 +88,8 @@ void loop() {
     theresetprinttime();
 
   }
-  Serial.println(weight_flag);
-    delay(2000);
+  //Serial.println(weight_flag);
+    delay(1000);
 }
 
 
@@ -101,8 +107,8 @@ void printtime(){
 
 
 void theresetprinttime(){
-    tm1637.display(1,5);
-    tm1637.display(2,0);
+    tm1637.display(1,0);
+    tm1637.display(2,2);
     tm1637.display(3,0);
 }
 
@@ -146,5 +152,6 @@ void sendData(int addr) {
 }
 
 void tm1637_reset(){
-  counttime=5*60;
+  counttime= 20;
+  delay(100);
 }

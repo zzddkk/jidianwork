@@ -19,6 +19,7 @@ void loop() {
     i=map(i,0,1023,0,4);
     if (mySerial.available()>0){
         s=mySerial.read();
+        delay(50);
     }
     Serial.println(s);
     if (s==1){
