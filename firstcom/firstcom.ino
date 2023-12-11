@@ -34,8 +34,8 @@ void setup() {
   // put your setup code here, to run once:
   //my_servo.attach(A0);
   pinMode(dataPin, OUTPUT);
-  //sendData(3);
-  //sendData(0);
+  sendData(3);
+  sendData(0);
   sendData(VOLUME); // 设置音量等级
   scale.begin(LOADCELL_DOUT_PIN, LOADCELL_SCK_PIN);
   Serial.begin(57600);
@@ -67,7 +67,7 @@ void loop() {
   }
   if (reading>1000){
         if (weight_flag==0){
-        //CPlay(4,7,7 , MUSIC_SELECT);  // 选择 m 曲目播放
+        CPlay(2,0x02, MUSIC_SELECT);  // 选择 m 曲目播放
         MsTimer2::start();
         }
         if (counttime==0){
@@ -82,7 +82,7 @@ void loop() {
   if ((reading<1000 && weight_flag==1) || (counttime==0 && weight_flag==0)){
     weight_flag=0;
     mySerial.write(weight_flag);
-    CPlay(30, 1, MUSIC_SELECT);  // 选择 m 曲目播放
+    CPlay(2, 0x01, MUSIC_SELECT);  // 选择 m 曲目播放
     tm1637_reset();
     MsTimer2::stop();
     theresetprinttime();
