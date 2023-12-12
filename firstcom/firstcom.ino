@@ -33,8 +33,8 @@ void setup() {
   // put your setup code here, to run once:
   //my_servo.attach(A0);
   pinMode(dataPin, OUTPUT);
-  //sendData(3);
-  //sendData(0);
+  sendData(3);
+  sendData(0);
   sendData(VOLUME); // 设置音量等级
   scale.begin(LOADCELL_DOUT_PIN, LOADCELL_SCK_PIN);
   Serial.begin(57600);  //  硬串口波特率设置用于调试
@@ -64,10 +64,17 @@ void loop() {
   } else {
     reading=0;//reading==0则传感器没有收到任何值
   }
+<<<<<<< HEAD
   if (reading>1000){//重物放到了压力传感器上
         if (weight_flag==0)//前一个状态上没有重物{
         //CPlay(4,7,7 , MUSIC_SELECT);  // 选择 m 曲目播放
           MsTimer2::start();//定时器启动
+=======
+  if (reading>1000){
+        if (weight_flag==0){
+        CPlay(2,0x02, MUSIC_SELECT);  // 选择 m 曲目播放
+        MsTimer2::start();
+>>>>>>> ae4c252309113944a36d2ead88793f48efd5b947
         }
         if (counttime==0)//如果存在重物而且定时器计时完毕{
           MsTimer2::stop();
@@ -85,9 +92,16 @@ void loop() {
     */
     weight_flag=0;//重物离去
     mySerial.write(weight_flag);
+<<<<<<< HEAD
     CPlay(30, 1, MUSIC_SELECT);  // 选择“语音”播放
     MsTimer2::stop();//定时器停止
     theresetprinttime();//四位显示器初始显示
+=======
+    CPlay(2, 0x01, MUSIC_SELECT);  // 选择 m 曲目播放
+    tm1637_reset();
+    MsTimer2::stop();
+    theresetprinttime();
+>>>>>>> ae4c252309113944a36d2ead88793f48efd5b947
 
   }
   //Serial.println(weight_flag);
